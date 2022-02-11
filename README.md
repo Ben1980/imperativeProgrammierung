@@ -1,2 +1,2 @@
 # imperativeProgrammierung
-Aufgaben aus Vorlesung "Einführung in die imperative Pprogrammierung"
+Aufgaben aus der Vorlesung "Einführung in die imperative Pprogrammierung"
