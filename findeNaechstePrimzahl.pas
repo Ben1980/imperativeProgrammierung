@@ -19,9 +19,13 @@ program FindeNaechstePrimzahl (input, output);
         else
         begin
             istPrimzahl := true;
-            for q := 2 to p-1 do
-                if p mod q = 0 then
-                    istPrimzahl := false
+            q := 2;
+            while p mod q <> 0 do
+                q := q + 1;
+            if p = q then
+                istPrimzahl := true
+            else
+                istPrimzahl := false;
         end;
     end;
 
