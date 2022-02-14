@@ -12,20 +12,25 @@ program FeldSort (input, output);
     MinPos,
     i : tIndex;
     Tausch : integer;
+    MinWert : integer;
     
-    function FeldMinimumPos (Feld : tFeld;
-                            von, bis : tIndex) : tIndex;
-    
+    procedure FeldMinimumPosUndWert (
+                            Feld : tFeld;
+                            von, bis : tIndex;
+                            var pos : tIndex;
+                            var value : integer);
         var
-        MinimumPos,
         j : tIndex;
         
     begin
-        MinimumPos := von;
+        pos := von;
+        value := Feld[von];
         for j := von + 1 to bis do
-            if Feld[j] < Feld[MinimumPos] then
-                MinimumPos := j;
-        FeldMinimumPos := MinimumPos
+            if Feld[j] < Feld[pos] then
+            begin
+                value := Feld[j];
+                pos := j
+            end
     end;
 
 begin
@@ -35,7 +40,9 @@ begin
     
     for i:= 1 to FELDGROESSE - 1 do
     begin
-        MinPos := FeldMinimumPos (EingabeFeld, i, FELDGROESSE);
+        MinPos := 1;
+        MinWert := 0;
+        FeldMinimumPosUndWert (EingabeFeld, i, FELDGROESSE, MinPos, MinWert);
         Tausch := EingabeFeld[MinPos];
         EingabeFeld[MinPos] := EingabeFeld[i];
         EingabeFeld[i] := Tausch;
