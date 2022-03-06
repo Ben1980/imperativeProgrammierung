@@ -12,7 +12,7 @@ program BinaryTree (input, output);
     var
     input : integer;
     wurzel,
-    smallest : tRefBinBaum;
+    blattVonLinks : tRefBinBaum;
     
     procedure KnotenEinfuegen (Zahl : integer;
                             var ioRefWurzel : tRefBinBaum);
@@ -74,6 +74,21 @@ program BinaryTree (input, output);
         end;
     end;
     
+    function BlattSuchenRek (ioRefWurzel : tRefBinBaum) : tRefBinBaum;
+    { Gibt Zeiger auf erstes Blatt von links zurück }
+        var
+        temp : tRefBinBaum;
+        
+    begin
+        if ioRefWurzel <> nil then
+            temp := BlattSuchenRek(ioRefWurzel^.links);
+            
+        if ioRefWurzel <> nil then
+            temp := ioRefWurzel;
+            
+        BlattSuchenRek := temp;
+    end;
+    
 begin
     wurzel := nil;
     
@@ -87,4 +102,9 @@ begin
     
     writeln('Binary search tree output in order:');
     InOrderTraversal(wurzel);
+    
+    writeln('');
+    writeln('Erstes Blatt von Links:');
+    blattVonLinks := BlattSuchenRek(wurzel);
+    write(blattVonLinks^.info:6);
 end.
