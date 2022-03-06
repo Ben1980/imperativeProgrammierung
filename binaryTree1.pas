@@ -73,6 +73,10 @@ program BinaryTree (input, output);
         end;
     end;
 
+    function GetNextNode (ioRefWurzel : tRefBinBaum) : tRefBinBaum;
+    begin
+        GetNextNode := nil;
+    end;
 begin
     wurzel := nil;
     
