@@ -89,6 +89,22 @@ program BinaryTree (input, output);
         BlattSuchenRek := temp;
     end;
     
+    function BlattSuchenIt (ioRefWurzel : tRefBinBaum) : tRefBinBaum;
+    { Gibt Zeiger auf erstes Blatt von links zurück }
+        var
+        temp : tRefBinBaum;
+        
+    begin
+        temp := ioRefWurzel;
+        
+        while (temp^.links <> nil) do
+        begin
+            temp := temp^.links;
+        end;
+        
+        BlattSuchenIt := temp;
+    end;
+    
 begin
     wurzel := nil;
     
@@ -104,7 +120,12 @@ begin
     InOrderTraversal(wurzel);
     
     writeln('');
-    writeln('Erstes Blatt von Links:');
+    writeln('Erstes Blatt von Links, Rekursiv:');
     blattVonLinks := BlattSuchenRek(wurzel);
+    write(blattVonLinks^.info:6);
+    
+    writeln('');
+    writeln('Erstes Blatt von Links, Rekursiv:');
+    blattVonLinks := BlattSuchenIt(wurzel);
     write(blattVonLinks^.info:6);
 end.
