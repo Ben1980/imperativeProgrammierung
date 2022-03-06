@@ -11,7 +11,8 @@ program BinaryTree (input, output);
 
     var
     input : integer;
-    wurzel : tRefBinBaum;
+    wurzel,
+    smallest : tRefBinBaum;
     
     procedure KnotenEinfuegen (Zahl : integer;
                             var ioRefWurzel : tRefBinBaum);
@@ -73,9 +74,14 @@ program BinaryTree (input, output);
         end;
     end;
 
-    function GetNextNode (ioRefWurzel : tRefBinBaum) : tRefBinBaum;
+    function GetSmallestNode (ioRefWurzel : tRefBinBaum) : tRefBinBaum;
     begin
-        GetNextNode := nil;
+        if ioRefWurzel <> nil then
+        begin
+            GetSmallestNode(ioRefWurzel^.links);
+            
+            GetSmallestNode := ioRefWurzel;
+        end;
     end;
 begin
     wurzel := nil;
@@ -90,4 +96,8 @@ begin
     
     writeln('Binary search tree output in order:');
     InOrderTraversal(wurzel);
+    
+    writeln('Kleinster Knoten:');
+    smallest := GetSmallestNode(wurzel);
+    writeln(smallest^.info:6);
 end.
