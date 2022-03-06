@@ -14,5 +14,5 @@ Aufgaben aus dem Skript und Übungen der Vorlesung [63811 "Einführung in die im
 6. Im Programmkopf wird die Aufgabe beschrieben, die das Programm löst.
 7. Jeder Funktions- und Prozedurkopf enthält eine knappe Aufgabenbeschreibung als Kommentar. Ggf. werden zusätzlich die Parameter kommentiert.
 8. Die Parameter werden sortiert nach Übergabeart: Eingangs-, Änderungs- und Ausgangsparameter.
-9. Die Übergabeart jedes Parameters wird duch Voranstellen von `in`, `io` oder `out` vor den Parameternamen gekennzeichnet.
+9. Die Übergabeart jedes Parameters wird durch Voranstellen von `in`, `io` oder `out` vor den Parameternamen gekennzeichnet.
 10. Das Layout von Funktionen und Prozeduren entspricht dem von Programmen.
