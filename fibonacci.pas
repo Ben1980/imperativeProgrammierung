@@ -1,9 +1,12 @@
 program Fibonacci (input, output);
 { Calculates the n'th fibonacci number }
 
+    type
+    tNatZahl = 0..maxint;
+    
     var
     Zahl,
-    fib : integer;
+    fib : tNatZahl;
 
     function CalculateFibonacci (Zahl : integer) : integer;
     { Berechnet die n'the Fibonacci Zahl.
