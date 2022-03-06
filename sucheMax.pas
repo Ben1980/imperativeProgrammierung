@@ -26,9 +26,8 @@ program SucheMaxElementPos (input, output);
             next := rekFeldMax(inMaxPos + 1, inFeld);
         
         if inFeld[inMaxPos] > inFeld[next] then
-            result := inMaxPos;
-            
-        if inFeld[next] > inFeld[inMaxPos] then
+            result := inMaxPos
+        else
             result := next;
         
         rekFeldMax := result;
