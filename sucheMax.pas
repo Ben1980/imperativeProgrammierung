@@ -19,10 +19,19 @@ program SucheMaxElementPos (input, output);
                         var inFeld : tFeld) : tIndex;
     { Sucht die position des groessten elements rekursiv }
         var
-        temp : tIndex;
+        next,
+        result : tIndex;
     begin
-        //temp := rekFeldMax()
-    
+        if inMaxPos + 1 <= FELDGROESSE then 
+            next := rekFeldMax(inMaxPos + 1, inFeld);
+        
+        if inFeld[inMaxPos] > inFeld[next] then
+            result := inMaxPos;
+            
+        if inFeld[next] > inFeld[inMaxPos] then
+            result := next;
+        
+        rekFeldMax := result;
     end;
 
 begin
