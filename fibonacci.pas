@@ -14,12 +14,8 @@ program Fibonacci (input, output);
         temp : integer;
     
     begin
-        if Zahl = 0 then
-            temp := 0
-        else
-        if Zahl = 1 then
-            temp := 1
-            
+        if Zahl < 2 then
+            temp := Zahl
         else
             temp := CalculateFibonacci(Zahl-1) + CalculateFibonacci(Zahl-2);
         
