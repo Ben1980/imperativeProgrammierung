@@ -16,3 +16,9 @@ Aufgaben aus dem Skript und Übungen der Vorlesung [63811 "Einführung in die im
 8. Die Parameter werden sortiert nach Übergabeart: Eingangs-, Änderungs- und Ausgangsparameter.
 9. Die Übergabeart jedes Parameters wird durch Voranstellen von `in`, `io` oder `out` vor den Parameternamen gekennzeichnet.
 10. Das Layout von Funktionen und Prozeduren entspricht dem von Programmen.
+11. Jede von einer Funktion oder Prozedur benutzte bzw. manipulierte Variable wird als Parameter übergeben. Es werden keine globalen Variablen manipuliert.
+12. Jeder nicht von der Prozedur veränderte Parameter wird als Wertparameter übergeben. Lediglich Felder können auch anstattals Wertparameter als Refernzparameter übergeben werden, um den Speicherplatz für die Kopie und den Kopiervorgang zu sparen. Der Feldbezeichner beginnt aber stets mit dem präfix `in`, wenn das Feld nicht verändert wird.
+13. Funktionsprozeduren werden wie Funktionen im mathematischen Sinne benutzt, d.h. sie besitzen nur Wertparameter. Wie bei Prozeduren ist eine Ausnahme nur bei Feldern erlaubt, um zusätzlichen Speivherplatz und Kopieraufwand zu vermeiden.
+14. Wertparameter werden nicht als lokale Variable missbraucht.
+15. Die Laufvariable wird innerhalb eine `for`-Anweisung nicht manipuliert.
+16. Die Grundsätze der strukturierten Programmierung sind strikt zu befolgen.
