@@ -3,8 +3,8 @@ program NaeherungWurzel2 (input, output);
 
     type
     tBruch = record
-                Zaehler : Double;
-                Nenner : Double;
+                First : integer;
+                Second : integer;
             end;
             
     var
@@ -14,20 +14,29 @@ program NaeherungWurzel2 (input, output);
     function NaehereWurzel2(inGrad : integer) : tBruch;
     { Berechnet den n-ten Grad der naeherung zu Wurzel(2) }
         var
+        Temp : integer;
+        i : integer;
         Naeherung : tBruch;
         
     begin
-        Naeherung.Zaehler := 0;
-        Naeherung.Nenner := 0;
-    
+        Naeherung.First := 1;
+        Naeherung.Second := 1;
+        
+        for i := 2 to inGrad do
+        begin
+            Temp := Naeherung.First;
+            Naeherung.First := Naeherung.First + Naeherung.Second;
+            Naeherung.Second := Naeherung.First + Temp;
+        end;
+     
         NaehereWurzel2 := Naeherung;
     end;
     
 begin
-    write('Gib den Grad der Näherung zu Wurzel(2) ein: ');
+    write('Gib den Grad der Naeherung zu Wurzel(2) ein: ');
     readln(Grad);
     
     NaherungsBruch := NaehereWurzel2 (Grad);
     
-    write('Die Näherung zu Wurzel(2) mit dem Grad ', Grad, ' ist (', NaherungsBruch.Nenner, ', ', NaherungsBruch.Zaehler, ') -> ', NaherungsBruch.Zaehler / NaherungsBruch.Nenner);
+    write('Die Naeherung zu Wurzel(2) mit dem Grad ', Grad, ' ist (', NaherungsBruch.First, ', ', NaherungsBruch.Second, ') -> ', NaherungsBruch.Second / NaherungsBruch.First);
 end.
