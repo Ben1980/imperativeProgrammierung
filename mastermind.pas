@@ -14,20 +14,16 @@ program mastermind{input,output};
   tFarben = ERSTEFARBE..LETZTEFARBE;
   tFarbPos = 1..ANZSTELLEN;
   tFarbfolge = array[tFarbPos] of tFarben;
+  tConfirmed = array[tFarbPos] of boolean;
   
   var
   code, versuch: tFarbfolge;
+  confirmed : tConfirmed;
   schwarze, weisse: integer;
   versuchNr: integer;
   erraten: boolean;
-  i:integer;
-    
-   { 
-   * ========================================================
-   * BITTE ERGAENZEN SIE DEN DEKLARATIONSTEIL GGF. UM WEITERE
-   * DEKLARATIONEN UND DEFINITONEN *
-   * ========================================================
-   }
+  i: integer;
+  k, m : tFarbPos;
 
   procedure einlesen(var outFarbkombi: tFarbfolge);
   {Farbfolge einlesen}
@@ -65,24 +61,43 @@ begin
   
   for i:=1 to 240 do
     writeln;
-
+  
   versuchNr := 1;
   erraten := false;
+  
+    
   while (versuchNr <= MAXVERSUCHE) and not erraten do
   begin
     write('dein ', versuchNr, '. Rateversuch (');
     einlesen(versuch);
     {Die Variable versuch enthaelt jetzt die eingelesene Farbfolge als Wert.}
     
-    {
-    * ==================================================================
-    * BITTE FUEGEN SIE HIER IHREN CODE EIN. 
-    * =====================================
-    * Dieser bewertet den Rateversuch versuch an Hand der geheimen 
-    * Farbfolge code mit der Anzahl der schwarzen und weissen Stifte in 
-    * den Variablen schwarz und weiss.
-    * ==================================================================
-    }
+    schwarze := 0;
+    weisse := 0;
+  
+    for k := 1 to ANZSTELLEN do
+        confirmed[k] := false;
+    
+    for k := 1 to ANZSTELLEN do
+    begin
+        for m := 1 to ANZSTELLEN do
+        begin
+            if (m = k) and (not confirmed[k]) and (CompareChar(code[k],versuch[m],1) = 0) then
+            begin
+                schwarze := schwarze + 1;
+                confirmed[k] := true;
+                break;
+            end
+            else
+            begin
+                if (not confirmed[k]) and (CompareChar(code[k],versuch[m],1) = 0) then
+                begin
+                    weisse := weisse + 1;
+                    confirmed[k] := true;
+                end
+            end;
+        end;
+    end;
     
     erraten := schwarze = ANZSTELLEN;
     if not erraten then
