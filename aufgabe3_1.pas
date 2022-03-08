@@ -17,7 +17,21 @@ program WertePolynomAus (input, output);
                         inKoeffizient : integer;
                         inGrad: tZahl);
     { Fügt ein Monom an ein Polynom an }
-    begin
+        var
+        monom : tRefPolynom;
+        
+    begin       
+        New (monom);
+        monom^.koeffizient := inKoeffizient;
+        monom^.grad := inGrad;
+        monom^.next := nil;
+        
+        while ioPolynom^.next <> nil do
+        begin
+            ioPolynom := ioPolynom^.next;
+        end;
+        
+        ioPolynom^.next := monom;
     end;
     
     function PolynomAuswerten (var ioPolynom : tRefPolynom;
@@ -32,6 +46,10 @@ begin
     Anfuegen(polynom, 7, 5);
     Anfuegen(polynom, 3, 2);
     
+    //writeln(polynom^);
+    
     ergebniss := PolynomAuswerten(polynom, 2);
     writeln('Das Ergebniss des Polynoms ist: ', ergebniss);
+    
+    //writeln(polynom);
 end.
