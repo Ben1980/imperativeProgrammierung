@@ -18,7 +18,8 @@ program mastermind{input,output};
   
   var
   code, versuch: tFarbfolge;
-  confirmed : tConfirmed;
+  codeConfirmed,
+  verConfirmed : tConfirmed;
   schwarze, weisse: integer;
   versuchNr: integer;
   erraten: boolean;
@@ -76,25 +77,30 @@ begin
     weisse := 0;
   
     for k := 1 to ANZSTELLEN do
-        confirmed[k] := false;
+    begin
+        codeConfirmed[k] := false;
+        verConfirmed[k] := false;
+    end;
     
+    for k := 1 to ANZSTELLEN do
+    begin
+        if (not codeConfirmed[k]) and (not verConfirmed[k]) and (CompareChar(code[k],versuch[k],1) = 0) then
+        begin
+            schwarze := schwarze + 1;
+            codeConfirmed[k] := true;
+            verConfirmed[k] := true;
+        end;
+    end;
+        
     for k := 1 to ANZSTELLEN do
     begin
         for m := 1 to ANZSTELLEN do
         begin
-            if (m = k) and (not confirmed[k]) and (CompareChar(code[k],versuch[m],1) = 0) then
+            if (not codeConfirmed[k]) and (not verConfirmed[m]) and (CompareChar(code[k],versuch[m],1) = 0) then
             begin
-                schwarze := schwarze + 1;
-                confirmed[k] := true;
-                break;
-            end
-            else
-            begin
-                if (not confirmed[k]) and (CompareChar(code[k],versuch[m],1) = 0) then
-                begin
-                    weisse := weisse + 1;
-                    confirmed[k] := true;
-                end
+                weisse := weisse + 1;
+                codeConfirmed[k] := true;
+                verConfirmed[m] := true;
             end;
         end;
     end;
