@@ -18,9 +18,47 @@ program listeMitWorten(input, output);
   procedure add(var ioListe:tRefIndexListe; inIndex:integer; inWort:String);
   {fügt in die sortierte Liste ioListe ein neues Element mit dem Index
    inIndex und dem Wort inWort ein und erhöht ggf. gleiche Indizes}
-  
+	var
+	element : tRefIndexListe;
+	liste : tRefIndexListe;
+	
   begin
-  
+	liste := ioListe;
+	// Erzeuge element
+	New (element);
+	element^.index := inIndex;
+	element^.wort := inWort;
+	element^.next := nil;
+	
+	// 1. Fall, erstes element einfuegen
+	if liste = nil then
+		liste := element
+	else // 2. Fall, element vorne einfuegen
+	if inIndex < liste^.index then 
+	begin
+		element^.next := liste;
+		liste := element;
+	end
+	else // 3 - n. Fall,
+	begin
+		while liste <> nil do
+		begin
+			//temp := ioListe;
+			
+			// 3. Fall element index > als letzter eintrag
+			if (inIndex > liste^.index) and (liste^.next = nil) then
+			begin
+				write(liste^.index, ':', element^.index);
+				liste^.next := element;
+				break;
+			end;
+			
+			liste := liste^.next;
+		end;
+	end;
+	
+	ioListe := liste;
+	
   end;
 {----------- hier endet Ihre Prozedur ----------------------------------------}
 
