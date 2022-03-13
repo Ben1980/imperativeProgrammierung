@@ -17,9 +17,14 @@ program isomorphieVonBaumen(input, output);
 {----------- hier fügen Sie bitte Ihre Funktion ein --------------------------}
   function check(inBaumA:tRefBinBaum; inBaumB:tRefBinBaum):boolean;
   {entscheidet, ob zwei Bäume isomorph sind}
-  
+	
   begin
-    check := true
+	if (inBaumA = nil) or (inBaumB = nil) then
+		check := inBaumA = inBaumB // Reckursionsabruch und check ob bede beaume gleichzeitig enden
+	else
+		check := (inBaumA^.wert = inBaumB^.wert) and 
+        (check(inBaumA^.links, inBaumB^.links) and check(inBaumA^.rechts, inBaumB^.rechts) or 
+        check(inBaumA^.links, inBaumB^.rechts) and  check(inBaumA^.rechts, inBaumB^.links));
   end;
 {----------- hier endet Ihre Funktion ----------------------------------------}
  
