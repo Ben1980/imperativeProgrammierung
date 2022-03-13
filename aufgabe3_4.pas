@@ -19,11 +19,11 @@ program listeMitWorten(input, output);
   {fügt in die sortierte Liste ioListe ein neues Element mit dem Index
    inIndex und dem Wort inWort ein und erhöht ggf. gleiche Indizes}
 	var
+	pos,
 	element : tRefIndexListe;
-	liste : tRefIndexListe;
+	index : integer;
 	
-  begin
-	liste := ioListe;
+  begin	
 	// Erzeuge element
 	New (element);
 	element^.index := inIndex;
@@ -31,33 +31,44 @@ program listeMitWorten(input, output);
 	element^.next := nil;
 	
 	// 1. Fall, erstes element einfuegen
-	if liste = nil then
-		liste := element
-	else // 2. Fall, element vorne einfuegen
-	if inIndex < liste^.index then 
+	if ioListe = nil then
+		ioListe := element
+	else 
 	begin
-		element^.next := liste;
-		liste := element;
-	end
-	else // 3 - n. Fall,
-	begin
-		while liste <> nil do
+		// 2. Fall, element vorne einfuegen
+		if inIndex <= ioListe^.index then 
 		begin
-			//temp := ioListe;
-			
-			// 3. Fall element index > als letzter eintrag
-			if (inIndex > liste^.index) and (liste^.next = nil) then
+			element^.next := ioListe;
+			ioListe := element;
+		end
+		else
+		begin
+			pos := ioListe;
+			while pos^.next <> nil do
 			begin
-				write(liste^.index, ':', element^.index);
-				liste^.next := element;
-				break;
+				if pos^.next^.index >= inIndex then
+					break
+				else
+					pos := pos^.next
 			end;
-			
-			liste := liste^.next;
+			element^.next := pos^.next;
+			pos^.next := element;
+		end;
+		// Index inkrementieren wenn noetig
+		pos := element^.next;
+		index := element^.index;
+		while pos <> nil do
+		begin
+			if pos^.index = index then
+			begin
+				index := index + 1;
+				pos^.index := index;
+				pos := pos^.next;
+			end
+			else
+				break;
 		end;
 	end;
-	
-	ioListe := liste;
 	
   end;
 {----------- hier endet Ihre Prozedur ----------------------------------------}
@@ -191,7 +202,7 @@ begin
     AND printTestDatum('[1,Hund][3,Aal][4,Katze][7,Maus]',3,'Tiger','[1,Hund][3,Tiger][4,Aal][5,Katze][7,Maus]')
     AND printTestDatum('[1,Hund][4,Aal][7,Katze][9,Maus][13,Floh][18,Huhn]',11,'Tiger','[1,Hund][4,Aal][7,Katze][9,Maus][11,Tiger][13,Floh][18,Huhn]')
     AND printTestDatum('[1,Hund][4,Aal][7,Katze][9,Maus][13,Floh][18,Huhn]',15,'Tiger','[1,Hund][4,Aal][7,Katze][9,Maus][13,Floh][15,Tiger][18,Huhn]')
-    AND printTestDatum('[1,Hund][4,Aal][7,Katze][9,Maus][13,Floh][18,Huhn]',18,'Tiger','[1,Hund][4,Aal][7,Katze][9,Maus][13,Floh][18,Tiger][19,Huhn]');      
+    AND printTestDatum('[1,Hund][4,Aal][7,Katze][9,Maus][13,Floh][18,Huhn]',18,'Tiger','[1,Hund][4,Aal][7,Katze][9,Maus][13,Floh][18,Tiger][19,Huhn]');     
   if bestanden then 
   begin 
     writeln('Alle Tests erfolgreich!');
