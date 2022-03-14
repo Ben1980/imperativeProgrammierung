@@ -14,11 +14,51 @@ program kiste(input, output);
            
   {---------------- hier beginnt Ihre Prozedur! ----------------}
   procedure add(inZahl:integer; inName:String; var ioKiste:tRefKiste);
-  {...}
-  
-  begin
+  { Fuegt eine Kiste hinzu, entweder zum Stapel oder legt einen neuen Stapel an sofern inName noch nicht vorhanden ist. }
+	var
+	kiste : tRefKiste;
 	
-
+	function erzeugeKiste(inZahl:integer; 
+							inName:String) : tRefKiste;
+	{ Erzeugt eine Kiste, diese Funktion ist nur dazu da redundanz zu reduzieren und den Code etwas aufzuraeumen }
+		var
+		neueKiste : tRefKiste;
+		
+	begin
+		new (neueKiste);
+		neueKiste^.zahl := inZahl;
+		neueKiste^.name := inName;
+		neueKiste^.up := nil;
+		neueKiste^.next := nil;
+		
+		erzeugeKiste :=  neueKiste
+	end;
+	
+  begin
+	// Abbruchbedingung wenn Liste leer
+	if ioKiste = nil then
+	begin
+		kiste := erzeugeKiste(inZahl, inName);
+		ioKiste := kiste;
+	end
+	else if (ioKiste^.name = inName) and (ioKiste^.up = nil) then // Abbruchbedingung wenn letzte kiste auf stabel erreicht wurde
+	begin
+		kiste := erzeugeKiste(inZahl, inName);
+		ioKiste^.up := kiste;
+	end
+	else if (ioKiste^.name <> inName) and (ioKiste^.next = nil) then // Abbruchbedingung wenn kein stabel exisitert
+	begin
+		kiste := erzeugeKiste(inZahl, inName);
+		ioKiste^.next := kiste
+	end
+	else
+	begin
+		if ioKiste^.name <> inName then
+			add(inZahl, inName, ioKiste^.next);
+		
+		if ioKiste^.name = inName then
+			add(inZahl, inName, ioKiste^.up);
+	end;
   end;
   {---------------- hier endet Ihre Prozedur  ----------------}
   
