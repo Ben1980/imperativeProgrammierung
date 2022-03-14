@@ -31,7 +31,7 @@ program kiste(input, output);
 		neueKiste^.up := nil;
 		neueKiste^.next := nil;
 		
-		erzeugeKiste :=  neueKiste
+		erzeugeKiste := neueKiste;
 	end;
 	
   begin
