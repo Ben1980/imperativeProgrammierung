@@ -19,7 +19,31 @@ program liste(input, output);
 
   procedure turn(var ioListe:tRefListe);
   {dreht eine Liste um}
+	var
+	reversedListe:tRefListe;
+	
   begin
+	reversedListe := nil;
+	
+	if ioListe <> nil then
+	begin
+		while ioListe^.next <> nil do
+		begin
+			ioListe := ioListe^.next;
+		end;
+		
+		reversedListe := ioListe;
+		
+		while ioListe^.prev <> nil do
+		begin
+			reversedListe^.next := ioListe^.prev;
+			reversedListe^.prev := ioListe^.next;
+			
+			ioListe := ioListe^.prev;
+		end;
+		
+		ioListe := reversedListe;
+	end;
   end;
 
   procedure add(inIndex:integer; inZahl:integer; var ioListe:tRefListe);
