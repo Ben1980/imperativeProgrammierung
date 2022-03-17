@@ -20,6 +20,7 @@ program kiste(input, output);
   procedure remove(inName:String; var ioKiste:tRefKiste);
   {...} 
 	var
+	tmp,
 	pos : tRefKiste;
 	
   begin
@@ -31,28 +32,41 @@ program kiste(input, output);
 		// 2. Fall, erstes element aus Liste muss geloescht werden und Stapel ist leer
 		if (pos^.name = inName) and (pos^.up = nil) and (pos^.next <> nil) then 
 			ioKiste := pos^.next
-		// 3. Fall, loesche oberstes element von Satpel
-		else if (pos^.name = inName) and (pos^.up <> nil) then 
-		begin
-			while pos^.up^.up <> nil do
-				pos := pos^.up;
-				
-			pos^.up := nil;
-		end
 		else
 		begin
-			// 4. Fall, wenn element nicht im ersten eintrag
-			while pos^.next <> nil do
+			// Position des Stapels finden
+			while (pos^.name <> inName) and (pos^.next <> nil) do
+				pos := pos^.next;
+			if (pos <> nil) and (pos^.name = inName) then
 			begin
-				if (pos^.next^.name = inName) and (pos^.next^.up = nil) then
+				if pos^.up <> nil then // 3. Fall, Stapel exisitert und etwas vom Stapel loeschen 
 				begin
-					pos := pos^.next^.next;
-					break;
+					while (pos^.up^.up <> nil) do
+						pos := pos^.up;
+					if pos <> nil then
+						pos^.up := nil;
+				end
+				else // 4. Fall, Stapel hat nur ein element
+				begin
+					pos := ioKiste;
+					while (pos^.next^.name <> inName) and (pos^.next <> nil) do // Position des Stapels finden
+						pos := pos^.next;
+					if pos <> nil then
+					begin
+						tmp := nil;
+						if pos^.next^.next <> nil then // Nachfolgelemenent speichern
+							tmp := pos^.next^.next;
+						
+						pos^.next := nil; // Gesuchtes element loeschen
+						
+						if tmp <> nil then // Und gegebenenfalls durch nachfolgelement ersetzen
+							pos^.next := tmp;
+					end;
 				end;
 			end;
 		end;
+		
 	end;
-	
   end; 
   {---------------- hier endet Ihre Prozedur  ----------------}
   
@@ -190,9 +204,9 @@ begin
     AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Ingwer','[2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]')
     AND printTestDatum('[3,Ingwer][3,Ingwer][1,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Ingwer','[3,Ingwer][3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]')
     AND printTestDatum('[3,Ingwer] [2,Minze] [3,Salbei]','Minze','[3,Ingwer] [3,Salbei]')
-    //AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei][4,Salbei]','Salbei','[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei]')
-    //AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Toast','[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]');
-	;
+    AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei][4,Salbei]','Salbei','[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei]')
+    AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Toast','[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]');
+    ;
   if bestanden then 
   begin 
     writeln('Alle Tests erfolgreich!');
