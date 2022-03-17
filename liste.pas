@@ -190,7 +190,7 @@ program liste(input, output);
   
 begin
   eingabeListe := nil;
-  write('(add,remove,print,minpos,wert,sort,x,q) -> ');
+  write('(add,remove,print,minpos,wert,sort,turn,x,q) -> ');
   readln(befehl);
   while (befehl <> 'q') do
   begin
@@ -226,10 +226,12 @@ begin
     end;
     if (befehl = 'sort') then
       sort(eingabeListe);
+    if (befehl = 'turn') then
+      turn(eingabeListe);  
     if (befehl = 'x') then
       while eingabeListe <> nil do
         remove(1,eingabeListe); 
-    write('(add,remove,print,minpos,wert,sort,x,q) -> ');
+    write('(add,remove,print,minpos,wert,sort,turn,x,q) -> ');
     readln(befehl)
   end
 end.
