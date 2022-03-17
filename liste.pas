@@ -7,7 +7,8 @@ program liste(input, output);
   tRefListe = ^tListe;
   tListe = record
              zahl:integer;
-             next:tRefListe
+             next:tRefListe;
+             prev:tRefListe;
            end;
            
   var
@@ -15,6 +16,11 @@ program liste(input, output);
   zahl:integer;
   befehl:string;
   eingabeListe:tRefListe;
+
+  procedure turn(var ioListe:tRefListe);
+  {dreht eine Liste um}
+  begin
+  end;
 
   procedure add(inIndex:integer; inZahl:integer; var ioListe:tRefListe);
   {fügt eine Zahl inZahl an Position inIndex hinzu}
@@ -28,7 +34,8 @@ program liste(input, output);
     begin
       new(ioListe);
       ioListe^.zahl := inZahl;
-      ioListe^.next := nil
+      ioListe^.next := nil;
+      ioListe^.prev := nil;
     end  
     else 
     begin  
@@ -37,7 +44,9 @@ program liste(input, output);
       neu^.next := nil;
       if inIndex = 1 then
       begin
+		neu^.prev := nil;
         neu^.next := ioListe;
+        ioListe^.prev := neu;
         ioListe := neu  
       end
       else
@@ -49,8 +58,9 @@ program liste(input, output);
           akt := akt^.next;
           i := i + 1  
         end;
+        neu^.prev := akt;
         neu^.next := akt^.next;
-        akt^.next := neu
+        akt^.next := neu;
       end
     end
   end;
@@ -69,6 +79,7 @@ program liste(input, output);
       begin
         trash := ioListe;
         ioListe := ioListe^.next;
+        ioListe^.prev := nil;
         dispose(trash)
       end
       else
@@ -84,6 +95,7 @@ program liste(input, output);
         begin
           trash := akt^.next;
           akt^.next := akt^.next^.next;
+          akt^.next^.next^.prev := akt;
           dispose(trash)
         end
       end
