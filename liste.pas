@@ -29,20 +29,26 @@ program liste(input, output);
 	begin
 		while ioListe^.next <> nil do
 		begin
+			//writeln(ioListe^.zahl);
 			ioListe := ioListe^.next;
+			//writeln(ioListe^.prev^.zahl);
 		end;
+		//writeln(ioListe^.zahl);
+		//writeln(ioListe^.zahl);
 		
 		reversedListe := ioListe;
 		
 		while ioListe^.prev <> nil do
 		begin
+			writeln(ioListe^.zahl);
 			reversedListe^.next := ioListe^.prev;
 			reversedListe^.prev := ioListe^.next;
 			
 			ioListe := ioListe^.prev;
+			writeln(ioListe^.zahl);
 		end;
 		
-		ioListe := reversedListe;
+		//ioListe := reversedListe;
 	end;
   end;
 
