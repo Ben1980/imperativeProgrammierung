@@ -17,41 +17,6 @@ program liste(input, output);
   befehl:string;
   eingabeListe:tRefListe;
 
-  procedure turn(var ioListe:tRefListe);
-  {dreht eine Liste um}
-	var
-	reversedListe:tRefListe;
-	
-  begin
-	reversedListe := nil;
-	
-	if ioListe <> nil then
-	begin
-		while ioListe^.next <> nil do
-		begin
-			//writeln(ioListe^.zahl);
-			ioListe := ioListe^.next;
-			//writeln(ioListe^.prev^.zahl);
-		end;
-		//writeln(ioListe^.zahl);
-		//writeln(ioListe^.zahl);
-		
-		reversedListe := ioListe;
-		
-		while ioListe^.prev <> nil do
-		begin
-			writeln(ioListe^.zahl);
-			reversedListe^.next := ioListe^.prev;
-			reversedListe^.prev := ioListe^.next;
-			
-			ioListe := ioListe^.prev;
-			writeln(ioListe^.zahl);
-		end;
-		
-		//ioListe := reversedListe;
-	end;
-  end;
-
   procedure add(inIndex:integer; inZahl:integer; var ioListe:tRefListe);
   {fügt eine Zahl inZahl an Position inIndex hinzu}
     var
@@ -216,6 +181,44 @@ program liste(input, output);
       lange := lange + 1 
     end;
     ioListe := liste
+  end;
+  
+  procedure turn(var ioListe:tRefListe);
+  {dreht eine Liste um}
+	var
+	tmp,
+	reversedListe:tRefListe;
+	
+  begin
+	if ioListe <> nil then
+	begin
+		reversedListe := nil;
+	
+		while ioListe^.next <> nil do
+		begin
+			ioListe := ioListe^.next;
+		end;
+		
+		reversedListe := ioListe;
+		tmp := ioListe^.prev;
+		reversedListe^.prev := nil;
+		ioListe := tmp;
+		
+		while ioListe^.prev <> nil do
+		begin
+			writeln(reversedListe^.zahl);
+			
+			reversedListe^.next := ioListe;
+			tmp := ioListe^.prev;
+			reversedListe^.next^.prev := reversedListe;
+			ioListe := tmp;
+			
+			reversedListe := reversedListe^.next;
+			ioListe := ioListe^.prev;
+		end;
+		
+		ioListe := reversedListe;
+	end;
   end;
   
 begin
