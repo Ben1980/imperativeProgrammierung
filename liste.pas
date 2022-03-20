@@ -192,30 +192,19 @@ program liste(input, output);
   begin
 	if ioListe <> nil then
 	begin
-		reversedListe := nil;
-	
-		while ioListe^.next <> nil do
+		while ioListe <> nil do
 		begin
-			ioListe := ioListe^.next;
-		end;
-		
-		reversedListe := ioListe;
-		tmp := ioListe^.prev;
-		reversedListe^.prev := nil;
-		ioListe := tmp;
-		
-		while ioListe^.prev <> nil do
-		begin
-			writeln(reversedListe^.zahl);
+			writeln(ioListe^.zahl);
 			
-			reversedListe^.next := ioListe;
-			tmp := ioListe^.prev;
-			reversedListe^.next^.prev := reversedListe;
-			ioListe := tmp;
+			tmp := ioListe^.next;
+			ioListe^.next := ioListe^.prev;
+			ioListe^.prev := tmp;
 			
-			reversedListe := reversedListe^.next;
+			if ioListe^.prev = nil then
+				reversedListe := ioListe;
+			
 			ioListe := ioListe^.prev;
-		end;
+		end;	
 		
 		ioListe := reversedListe;
 	end;
