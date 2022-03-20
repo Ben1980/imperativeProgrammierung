@@ -20,6 +20,7 @@ program kiste(input, output);
   procedure add(inZahl:integer; inName:String; var ioKiste:tRefKiste);
   { Fuegt einer Liste ein element hinzu. Wenn bereits ein element vorhanden ist erweitert es dessen stapel um ein weiteres }
 	var
+	gefunden:boolean;
 	start,
 	element:tRefKiste;
 	
@@ -35,6 +36,7 @@ program kiste(input, output);
 	end
 	else
 	begin
+		gefunden := false;
 		start := ioKiste;
 		
 		while ioKiste <> nil do
@@ -42,6 +44,8 @@ program kiste(input, output);
 			// 2. Fall, auf stapel hinzufuegen
 			if ioKiste^.name = inName then
 			begin
+				gefunden := true;
+				
 				new (element);
 				element^.zahl := inZahl;
 				element^.name := inName;
@@ -56,6 +60,11 @@ program kiste(input, output);
 			end;
 			
 			ioKiste := ioKiste^.next;
+		end;
+		
+		// 3. Fall, Stapel nicht vorhanden
+		if not gefunden then
+		begin
 		end;
 		
 		ioKiste := start;
@@ -200,8 +209,7 @@ begin
     AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]',5,'Ingwer','[3,Ingwer][5,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]')
     AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]',2,'Minze','[3,Ingwer] [2,Minze][7,Minze][3,Minze][2,Minze] [3,Salbei][2,Salbei]')
     AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]',6,'Salbei','[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei][6,Salbei]')
-    //AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]',4,'Toast','[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei] [4,Toast]');
-	;
+    AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]',4,'Toast','[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei] [4,Toast]');
   if bestanden then 
   begin 
     writeln('Alle Tests erfolgreich!');
