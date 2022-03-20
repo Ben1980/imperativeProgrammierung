@@ -73,9 +73,16 @@ program liste(input, output);
       if inIndex = 1 then
       begin
         trash := ioListe;
-        ioListe := ioListe^.next;
-        ioListe^.prev := nil;
-        dispose(trash)
+        
+        if ioListe^.next <> nil then
+        begin
+			ioListe := ioListe^.next;
+			ioListe^.prev := nil;
+		end
+		else
+			ioListe := nil;
+        
+        dispose(trash);
       end
       else
       begin
