@@ -89,8 +89,15 @@ program liste(input, output);
         if akt^.next <> nil then
         begin
           trash := akt^.next;
-          akt^.next := akt^.next^.next;
-          akt^.next^.next^.prev := akt;
+          
+          if akt^.next^.next <> nil then
+			akt^.next := akt^.next^.next
+		  else
+		    akt^.next := nil;
+          
+          if akt^.next <> nil then
+			akt^.next^.prev := akt;
+			
           dispose(trash)
         end
       end
@@ -193,8 +200,6 @@ program liste(input, output);
 	begin
 		while ioListe <> nil do
 		begin
-			writeln(ioListe^.zahl);
-			
 			tmp := ioListe^.next;
 			ioListe^.next := ioListe^.prev;
 			ioListe^.prev := tmp;
