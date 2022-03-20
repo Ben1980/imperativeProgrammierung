@@ -68,7 +68,13 @@ program kiste(input, output);
 		// 3. Fall, Stapel nicht vorhanden
 		if (not gefunden) and (ioKiste <> nil) then
 		begin
+			new (element);
+			element^.zahl := inZahl;
+			element^.name := inName;
+			element^.next := nil;
+			element^.up := nil;
 			
+			ioKiste^.next := element;
 		end;
 		
 		ioKiste := start;
