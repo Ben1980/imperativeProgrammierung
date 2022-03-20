@@ -186,8 +186,7 @@ program liste(input, output);
   procedure turn(var ioListe:tRefListe);
   {dreht eine Liste um}
 	var
-	tmp,
-	reversedListe:tRefListe;
+	tmp:tRefListe;
 	
   begin
 	if ioListe <> nil then
@@ -201,12 +200,12 @@ program liste(input, output);
 			ioListe^.prev := tmp;
 			
 			if ioListe^.prev = nil then
-				reversedListe := ioListe;
+				tmp := ioListe;
 			
 			ioListe := ioListe^.prev;
 		end;	
 		
-		ioListe := reversedListe;
+		ioListe := tmp;
 	end;
   end;
   
