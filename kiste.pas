@@ -59,12 +59,16 @@ program kiste(input, output);
 				ioKiste^.up := element;
 			end;
 			
-			ioKiste := ioKiste^.next;
+			if (ioKiste^.next = nil) and (not gefunden) then
+				break
+			else
+				ioKiste := ioKiste^.next;
 		end;
 		
 		// 3. Fall, Stapel nicht vorhanden
-		if not gefunden then
+		if (not gefunden) and (ioKiste <> nil) then
 		begin
+			
 		end;
 		
 		ioKiste := start;
