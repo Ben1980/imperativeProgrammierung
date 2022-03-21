@@ -233,8 +233,7 @@ program liste(input, output);
 	
 	tmp := ioListe^.next;
 	ioListe^.next := ioListe^.prev;
-	ioListe^.prev := tmp;	
-  
+	ioListe^.prev := tmp;
   end;
   
 begin
