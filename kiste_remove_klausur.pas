@@ -70,6 +70,31 @@ program kiste(input, output);
   end; 
   {---------------- hier endet Ihre Prozedur  ----------------}
   
+  {procedure removeRek(inName:String; var ioKiste:tRefKiste);
+	var
+	trash:tRefKiste;
+	
+  begin
+	// 1. Abbruchbedingung, Ende der liste ohne Erfolg erreiche
+	if ioKiste <> nil then
+	begin
+		// 2. Abbruchbedingung, Element und ende des Stapels gefunden
+		if (ioKiste^.name = inName) and (ioKiste^.up = nil) then
+		begin
+			trash := ioKiste;
+			ioKiste^.prev^.next := nil;
+			dispose(trash);
+		end
+		else
+		begin
+			if (ioKiste^.name <> inName) and (ioKiste^.next <> nil) then
+				removeRek(inName, ioKiste^.next)
+			else
+			if (ioKiste^.name = inName) and (ioKiste^.up <> nil) then
+				removeRek(inName, ioKiste^.up);
+		end;
+	end;
+  end;}
   
   procedure print(inKiste:tRefKiste);
   {schreibt alle Kisten auf die Standardausgabe} 
