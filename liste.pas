@@ -223,8 +223,18 @@ program liste(input, output);
   
   procedure turnRek(var ioListe:tRefListe);
   { dreht eine Liste, rekursive loesung }
-  
+	var
+	tmp:tRefListe;
+	
   begin
+	// Abbruchkriterium
+	if ioListe^.next <> nil then
+		turnRek(ioListe^.next);
+	
+	tmp := ioListe^.next;
+	ioListe^.next := ioListe^.prev;
+	ioListe^.prev := tmp;	
+  
   end;
   
 begin
@@ -268,7 +278,11 @@ begin
     if (befehl = 'turn') then
       turn(eingabeListe);  
     if (befehl = 'turnRek') then
-      turnRek(eingabeListe); 
+    begin
+      turnRek(eingabeListe);
+      while eingabeListe^.prev <> nil do
+		eingabeListe := eingabeListe^.prev;
+    end;
     if (befehl = 'x') then
       while eingabeListe <> nil do
         remove(1,eingabeListe); 
