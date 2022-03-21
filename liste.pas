@@ -221,9 +221,15 @@ program liste(input, output);
 	end;
   end;
   
+  procedure turnRek(var ioListe:tRefListe);
+  { dreht eine Liste, rekursive loesung }
+  
+  begin
+  end;
+  
 begin
   eingabeListe := nil;
-  write('(add,remove,print,minpos,wert,sort,turn,x,q) -> ');
+  write('(add,remove,print,minpos,wert,sort,turn,turnRek,x,q) -> ');
   readln(befehl);
   while (befehl <> 'q') do
   begin
@@ -261,10 +267,12 @@ begin
       sort(eingabeListe);
     if (befehl = 'turn') then
       turn(eingabeListe);  
+    if (befehl = 'turnRek') then
+      turnRek(eingabeListe); 
     if (befehl = 'x') then
       while eingabeListe <> nil do
         remove(1,eingabeListe); 
-    write('(add,remove,print,minpos,wert,sort,turn,x,q) -> ');
+    write('(add,remove,print,minpos,wert,sort,turn,turnRek,x,q) -> ');
     readln(befehl)
   end
 end.
