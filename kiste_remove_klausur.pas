@@ -232,10 +232,10 @@ begin
   writeln('**** testen ****');
   bestanden := printTestDatum('','Ingwer','')
     AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Ingwer','[2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]')
-    //AND printTestDatum('[3,Ingwer][3,Ingwer][1,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Ingwer','[3,Ingwer][3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]')
-    //AND printTestDatum('[3,Ingwer] [2,Minze] [3,Salbei]','Minze','[3,Ingwer] [3,Salbei]')
-    //AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei][4,Salbei]','Salbei','[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei]')
-    //AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Toast','[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]');
+    AND printTestDatum('[3,Ingwer][3,Ingwer][1,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Ingwer','[3,Ingwer][3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]')
+    AND printTestDatum('[3,Ingwer] [2,Minze] [3,Salbei]','Minze','[3,Ingwer] [3,Salbei]')
+    AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei][4,Salbei]','Salbei','[3,Ingwer] [2,Minze][7,Minze] [3,Salbei][5,Salbei]')
+    AND printTestDatum('[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]','Toast','[3,Ingwer] [2,Minze][7,Minze][3,Minze] [3,Salbei][2,Salbei]');
     ;
   if bestanden then 
   begin 
